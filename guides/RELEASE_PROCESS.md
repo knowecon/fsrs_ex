@@ -31,9 +31,13 @@ make release
 - Non-interactive publish requires `HEX_API_KEY`.
 - Keep `README.md`, guides, and module docs current before release.
 
+## Version Numbers
+
+The package version is the version of `fsrs-rs` that the code is ported from (see [Porting Policy](PORTING_POLICY.md)). A parity test fails if the major and minor version in `mix.exs` differ from the fixture's fsrs-rs version.
+
 ## Suggested Release Steps
 
-1. Update version in `mix.exs`.
+1. Set the version in `mix.exs` to the fsrs-rs version being ported.
 2. Run `make preflight`.
 3. Publish package and docs.
 4. Create and push a Git tag matching the version.

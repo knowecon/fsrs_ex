@@ -2,7 +2,8 @@ defmodule Fsrs.MixProject do
   use Mix.Project
 
   def project do
-    version = "0.1.2"
+    # Tracks the fsrs-rs version this package is ported from.
+    version = "7.0.0"
 
     [
       app: :fsrs_ex,
@@ -19,17 +20,26 @@ defmodule Fsrs.MixProject do
         extras: [
           "README.md",
           "guides/GETTING_STARTED.md",
+          "guides/MIGRATING_TO_7.md",
           "guides/PORTING_POLICY.md",
           "guides/PARITY_TESTING.md",
           "guides/RELEASE_PROCESS.md",
-          "LICENSE"
+          "LICENSE",
+          "LICENSE-fsrs-rs"
         ],
         groups_for_extras: [
           Guides: Path.wildcard("guides/*.md")
         ],
         groups_for_modules: [
-          "Core API": [Fsrs, Fsrs.Scheduler, Fsrs.Card, Fsrs.ReviewLog],
-          "Enums & Constants": [Fsrs.Rating, Fsrs.State, Fsrs.Constants]
+          "Core API": [Fsrs],
+          "Data Structures": [
+            Fsrs.MemoryState,
+            Fsrs.NextStates,
+            Fsrs.ItemState,
+            Fsrs.Item,
+            Fsrs.Review,
+            Fsrs.Rating
+          ]
         ]
       ],
       deps: deps()
@@ -44,14 +54,14 @@ defmodule Fsrs.MixProject do
   end
 
   defp description do
-    "Direct Elixir port of open-spaced-repetition/py-fsrs (FSRS-6)."
+    "Elixir port of the open-spaced-repetition/fsrs-rs scheduler (FSRS-7 and FSRS-6)."
   end
 
   defp package do
     [
       name: "fsrs_ex",
       maintainers: ["lulucatdev"],
-      licenses: ["MIT"],
+      licenses: ["MIT", "BSD-3-Clause"],
       files: [
         "lib",
         "guides",
@@ -60,12 +70,15 @@ defmodule Fsrs.MixProject do
         "llms.txt",
         "README.md",
         "LICENSE",
-        "test/fixtures/generate_py_fixture.py",
-        "test/fixtures/py_fsrs_v6_3_0_fixture.json"
+        "LICENSE-fsrs-rs",
+        "test/fixtures/rust_fixture/Cargo.toml",
+        "test/fixtures/rust_fixture/Cargo.lock",
+        "test/fixtures/rust_fixture/src",
+        "test/fixtures/fsrs_rs_v7_0_0_fixture.json.gz"
       ],
       links: %{
         "GitHub" => "https://github.com/lulucatdev/fsrs_ex",
-        "Py-FSRS" => "https://github.com/open-spaced-repetition/py-fsrs",
+        "fsrs-rs" => "https://github.com/open-spaced-repetition/fsrs-rs",
         "FSRS Algorithm Wiki" =>
           "https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm",
         "Jarrett Ye (X)" => "https://x.com/JarrettYe"
@@ -75,7 +88,6 @@ defmodule Fsrs.MixProject do
 
   defp deps do
     [
-      {:jason, "~> 1.4"},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end

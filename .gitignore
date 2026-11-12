@@ -22,5 +22,5 @@ fsrs_ex-*.tar
 # Temporary files, for example, from tests.
 /tmp/
 
-# Local Python virtualenv for parity fixture generation.
-/.venv/
+# Build output of the Rust parity fixture generator.
+/test/fixtures/rust_fixture/target/

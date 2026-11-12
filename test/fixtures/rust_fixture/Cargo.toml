@@ -1,0 +1,11 @@
+[package]
+name = "fsrs-ex-fixture"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+# Generates the parity fixture consumed by test/fsrs_rs_parity_test.exs.
+# The `fsrs` version pinned here is the upstream baseline of fsrs_ex.
+[dependencies]
+fsrs = "=7.0.0"
+serde_json = "1"

@@ -1,4 +1,4 @@
-.PHONY: help deps format format-check test docs hex-build hex-dry-run preflight publish publish-interactive release
+.PHONY: help deps format format-check test fixture docs hex-build hex-dry-run preflight publish publish-interactive release
 
 help:
 	@printf "Available targets:\n"
@@ -6,6 +6,7 @@ help:
 	@printf "  format              - Format source code\n"
 	@printf "  format-check        - Check formatting without changing files\n"
 	@printf "  test                - Run test suite\n"
+	@printf "  fixture             - Regenerate the fsrs-rs parity fixture (needs cargo)\n"
 	@printf "  docs                - Build HexDocs locally\n"
 	@printf "  hex-build           - Build Hex package tarball\n"
 	@printf "  hex-dry-run         - Validate publish flow without uploading\n"
@@ -25,6 +26,12 @@ format-check:
 
 test:
 	mix test
+
+FIXTURE := test/fixtures/fsrs_rs_v7_0_0_fixture.json
+
+fixture:
+	cd test/fixtures/rust_fixture && cargo run --release --locked -- ../../../$(FIXTURE)
+	gzip -9nf $(FIXTURE)
 
 docs:
 	mix docs
